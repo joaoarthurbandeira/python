@@ -4,17 +4,23 @@ import json
 
 class User():
     def __init__(self):
-        pass
-
-    def cadastro(self):
+        # pass
         self.nome = input("Digite o seu nome: ")
         self.email = input("Digite o seu email: ")
         self.senha = Password().cadastro_senha()
+
+    def cadastro(self, area=None):
 
         db = {}  # dados novos
         db[self.email] = {}  # identificador_unico
         db[self.email]["Nome"] = self.nome
         db[self.email]["Senha"] = self.senha
+        if area != None:
+            db[self.email]["Profissão"] = area
+            if area == "médico":
+                db[self.email]["CRM"] = input("Digite o seu CRM: ")
+            elif area == "advogado":
+                db[self.email]["OAB"] = input("Digite o seu OAB: ")
 
         # print(db)
         try:
