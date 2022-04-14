@@ -5,5 +5,5 @@ while True:  # teste para não ter que ficar digitando de novo
     profissao = input("Digite a sua profissão: ").lower()
     # usuario = User()
     # usuario.cadastro()
-    # esse parametro profissao substituirá "None" no parâmetro "area" do def cadastro
-    User_specify().cadastro(area=profissao)
+    # esse parametro "area" receberá como argumento "profissao", que substituirá "None" no parâmetro "area" do def cadastro
+    User().cadastro(area=profissao)

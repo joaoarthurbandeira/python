@@ -27,7 +27,7 @@ class User():
 
         data = json.load(database)  # dados antigos
 
-        def armazena(self):
+        def armazena():
             if area != None:
                 db[self.email]["Profissão"] = area
                 if area == "médico":
@@ -37,8 +37,10 @@ class User():
 
             # print(db)
                 with open("db.json", "r+", encoding="utf8") as json_file:
-                    data.update(db)  # dados antigos com dados novos
+                    # dados antigos com dados novos (db, que ta num dicionario)
+                    data.update(db)
                     json_file.seek(0)  # define a posição dos dados
+                    # empurrar os dados pro nosso json, quem atualiza de fato o arquivo
                     json.dump(data, json_file, ensure_ascii=False, indent=2)
 
         if self.email in data:
@@ -46,11 +48,13 @@ class User():
             atualiza = input().lower()
             if atualiza == "s":
                 # variavel nova para armazenar um dado antigo (senha antiga)
+                # o que está no db
                 senha_cadastrada_db = data[self.email]["Senha"]
                 # se a senha atual (self.senha) for igual à antiga...
                 if self.senha == senha_cadastrada_db:
                     armazena()
                 else:
+                    # nesse momento, restam 2 tentativas (primeira realizada ao digitarmos: " self.senha = Password().cadastro_senha()" "" que é comparada em "if self.senha == senha_cadastrada_db:"" )
                     for num_tentativa in range(2):
                         if num_tentativa < 2:
                             print(
