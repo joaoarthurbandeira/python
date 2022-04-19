@@ -1,5 +1,8 @@
 from password import Password
 import json
+from envia_email import send_email
+import random
+import string
 
 
 class User():
@@ -71,8 +74,11 @@ class User():
                         # se ela errar e não tiver excedido, volta para começo do for loop.
                         if num_tentativa == 1:
                             # se ela errar e exceder o numero de tentativas
-                            print(
-                                "enviamos um código para redefinição de senha no seu email.")
+                            self.codigo = random.choices(
+                                string.ascii_letters + string.digits, k=6)
+                            send_email(self.email, self.codigo, self.nome)
+                            # print(
+                            #     "enviamos um código para redefinição de senha no seu email.")
 
         # if self.email in data:
             # print("Dados já existentes. Deseja atualizá-los? [S/n]")
