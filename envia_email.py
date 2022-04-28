@@ -1,4 +1,4 @@
-import smtplib  # protocolo
+import smtplib  # biblioteca voltada para o protocolo SMTP, para envio de emails
 # mime = norma padrão envio de mensagens pela internet
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -35,7 +35,9 @@ def send_email(email, codigo, nome):  # parametro é o email do destinatário
     email_msg["subject"] = "Testando"
     email_msg.attach(MIMEText(message, "plain"))  # corpo da mensagem.
 
-    server.sendmail(email_msg["From"],
-                    email_msg["To"], email_msg.as_string())
-    print("Email enviado com sucesso.")
-    server(quit())
+    try:
+        server.sendmail(email_msg["From"],
+                        email_msg["To"], email_msg.as_string())
+        return print("Email enviado com sucesso."), server(quit())
+    except smtplib.SMTPRecipientsRefused:
+        return print("Email não encontrado.")
