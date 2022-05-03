@@ -46,6 +46,7 @@ class User():
                 json_file.seek(0)  # define a posição dos dados
                 # empurrar os dados pro nosso json, quem atualiza de fato o arquivo
                 json.dump(data, json_file, ensure_ascii=False, indent=2)
+            return print("Cadastro Concluído.")
 
         # se o email (nosso id) já existir na base de dados...
         if self.email in data:
@@ -83,4 +84,3 @@ class User():
             armazena()
 
         # return self.nome, self.email, self.senha
-        return print("Cadastro Concluído.")
