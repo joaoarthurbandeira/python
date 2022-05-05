@@ -43,13 +43,15 @@ class User():
             with open("db.json", "r+", encoding="utf8") as json_file:
                 # dados antigos com dados novos (db, que ta num dicionario)
                 data.update(db)
-                json_file.seek(0)  # define a posição dos dados
+                # define a posição dos dados, dizer onde vão ser adicionados os dados
+                json_file.seek(0)
                 # empurrar os dados pro nosso json, quem atualiza de fato o arquivo
                 json.dump(data, json_file, ensure_ascii=False, indent=2)
             return print("Cadastro Concluído.")
 
         # se o email (nosso id) já existir na base de dados...
         if self.email in data:
+            # atualiza todos os dados exceto email e senha (estes têm que ser iguais)
             print("Dados já existentes. Deseja atualizá-los? [S/n]")
             atualiza = input().lower()
             if atualiza == "s":
@@ -77,6 +79,13 @@ class User():
                             self.codigo = "".join(random.choices(
                                 string.ascii_letters + string.digits, k=6))
                             send_email(self.email, self.codigo, self.nome)
+                            redefinicao = input(
+                                "Digite o código de redefinição de senha enviado ao seu email: ")
+                            if redefinicao == self.codigo:
+                                nova_senha = input("Digite sua nova senha: ")
+                                data[self.email]["Senha"] = nova_senha
+                                armazena()
+
                             # print(
                             #     "enviamos um código para redefinição de senha no seu email.")
 
